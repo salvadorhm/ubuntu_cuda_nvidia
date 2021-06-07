@@ -86,3 +86,25 @@ RUN wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip && \
       .. && \
     make all -j$(nproc) && \
     make install
+
+RUN apt-get install -y libsm6 libxext6
+RUN apt-get install -y libxrender1
+RUN apt-get install -y libpng16-16
+RUN apt-get install -y ffmpeg
+RUN apt-get install -y python3-pip
+
+# upgrade pip3 for dlib install
+RUN python3 -m pip install --upgrade pip
+
+# Definbe ENV files
+ENV requirements /home/requirements.txt
+
+# Copy requirements file
+COPY requirements.txt ${requirements}
+
+# Install python packages
+RUN pip3 install -r /home/requirements.txt
+
+RUN apt-get upgrade -y
+
+# RUN pip3 install dlib==19.18.0
