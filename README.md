@@ -9,3 +9,4 @@ Repositorio para crear un contenedor con:
 
 
 docker build -t ubuntu_cuda:v1 .
+
